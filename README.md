@@ -1,53 +1,69 @@
-<p align="center">
-  <a href="https://www.carbondesignsystem.com">
-    <img alt="Carbon Design System" src="https://user-images.githubusercontent.com/3901764/57545698-ce5f2380-7320-11e9-8682-903df232d7b0.png" width="100%" />
-  </a>
-</p>
-<h1 align="center">
-  Carbon for IBM.com
-</h1>
+# @carbon/ibmdotcom-react
 
-> This library is an extension of the Carbon IBM Design System. It contains
-> unique components shared between the IBM.com user journeys to unify its look
-> and feel.
+> A collection of IBM.com components and patterns implemented using
+> [React](https://reactjs.org/) and
+> [Carbon](https://www.carbondesignsystem.com/).
 
-<p align="center">
-  <a href="https://github.com/carbon-design-system/carbon/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Carbon is released under the Apache-2.0 license" />
-  </a>
-  <a href="https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/.github/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome" />
-  </a>
-  <a href="https://percy.io/538fc19a/Carbon-for-IBM.com-Web-Components">
-  <img src="https://percy.io/static/images/percy-badge.svg" alt="This project is using Percy.io for visual regression testing." />
-</a>
-</p>
+## Getting Started
 
-## Getting started
+Run the following command using [npm](https://www.npmjs.com/):
 
-If you're just getting started, check out
-[`react`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/react).
-Web Components coming soon!
+```bash
+npm i @carbon/ibmdotcom-react
+```
 
-If you're trying to find something specific, here's a full list of packages that
-we support!
+If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
+instead:
 
-| Package name                                                                                                                            | Description                                              |
-| --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| [`@carbon/ibmdotcom-react`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/react)                   | IBM.com React components and patterns                    |
-| [`@carbon/ibmdotcom-web-components`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/web-components) | IBM.com web components                                   |
-| [`@carbon/ibmdotcom-services`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/services)             | IBM.com ES6 Service classes                              |
-| [`@carbon/ibmdotcom-styles`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/styles)                 | Framework agnostic styles package for IBM.com components |
-| [`@carbon/ibmdotcom-utilities`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/utilities)           | IBM.com ES6 Utility classes                              |
+```bash
+yarn add @carbon/ibmdotcom-react
+```
 
-If you are building pages for IBM.com,
-[see what is needed on the page](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/docs/building-for-ibm-dotcom.md).
+> NOTE: Carbon dependencies will be managed by Carbon for IBM.com starting in
+> `v1.3.0`. For earlier versions, Carbon dependencies will have to be installed
+> separately:
+>
+> ```bash
+> yarn add carbon-components carbon-components-react carbon-icons
+> ```
+
+1. These components require the use of [Webpack](https://webpack.js.org/) in
+   your project. See our
+   [`webpack.config.js`](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/react/.storybook/webpack.config.js)
+   for an example configuration.
+
+2. Components do not import any of the styles themselves, use the scss or css
+   from `@carbon/ibmdotcom-styles` to bring in styling.
+
+### Styles
+
+Styles are in a separate package entirely, as they are considered to be
+framework agnostic and can be used with any framework.
+[Learn how to include styles here](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/styles/README.md).
+
+## Usage
+
+### List of Available Components
+
+View available React Components [here](https://ibmdotcom-react.mybluemix.net).
+You can see usage information in several ways:
+
+1. Clicking the **DOCS** tab in the top of the selected component. You can see
+   the list of available React props as well as how to use in your project.
+2. Clicking the **STORY** tab at the bottom. This tab contains the code that
+   shows how the component is being used
+3. Clicking the **KNOBS** tab at the bottom and changing values there. Most
+   knobs are shown as something like `Button kind (kind)`, where `kind` is the
+   name of React prop
+4. Clicking the **CARBON THEME** tab at the bottom and interacting with the
+   selected component. You can see what the component looks like in the four
+   available Carbon themes (NOTE: not all components are available in all
+   themes).
 
 ## Documentation
 
-- See our documentation site
-  [here](http://www.ibm.com/standards/web/carbon-for-ibm-dotcom) for full how-to
-  docs and guidelines
+- See our documentation site [here](https://carbon-for-ibm-dotcom.mybluemix.net)
+  for full how-to docs and guidelines
 - [Contributing](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/.github/CONTRIBUTING.md):
   Guidelines for making contributions to this repo.
 
@@ -55,12 +71,11 @@ If you are building pages for IBM.com,
 
 We're always looking for contributors to help us fix bugs, build new features,
 or help us improve the project documentation. If you're interested, definitely
-check out our guides:
-
-- [Contributing Guide](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/.github/CONTRIBUTING.md)
-- [Developer Guide](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/docs/developing.md)
-- [Contributing to the Web Components package](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/web-components/docs/contributing-to-web-components.md)
-- [Contributing to the React package](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/packages/react/docs/contributing-to-react.md)
+check out our
+[Contributing Guide](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/.github/CONTRIBUTING.md)
+and our
+[Developer Guide](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/blob/master/docs/developing.md)!
+👀
 
 ## 📝 License
 

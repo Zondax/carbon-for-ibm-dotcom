@@ -1,0 +1,199 @@
+import _extends from "@babel/runtime/helpers/extends";
+import _defineProperty from "@babel/runtime/helpers/defineProperty";
+import _objectWithoutProperties from "@babel/runtime/helpers/objectWithoutProperties";
+
+/**
+ * Copyright IBM Corp. 2016, 2020
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+import { ClickableTile, Tile } from '../../internal/vendor/carbon-components-react/components/Tile/Tile';
+import React, { useCallback, useEffect, useRef } from 'react';
+import classNames from 'classnames';
+import CTALogic from '../CTA/CTALogic';
+import ddsSettings from '@carbon/ibmdotcom-utilities/es/utilities/settings/settings';
+import { Image } from '../Image';
+import markdownToHtml from '@carbon/ibmdotcom-utilities/es/utilities/markdownToHtml/markdownToHtml';
+import on from 'carbon-components/es/globals/js/misc/on';
+import PropTypes from 'prop-types';
+import settings from 'carbon-components/es/globals/js/settings';
+var stablePrefix = ddsSettings.stablePrefix;
+var prefix = settings.prefix;
+/**
+ * Card Link Component.
+ */
+
+export var Card = function Card(_ref) {
+  var _classNames;
+
+  var inverse = _ref.inverse,
+      image = _ref.image,
+      eyebrow = _ref.eyebrow,
+      heading = _ref.heading,
+      customClassName = _ref.customClassName,
+      copy = _ref.copy,
+      cta = _ref.cta,
+      pictogram = _ref.pictogram,
+      onClick = _ref.onClick,
+      props = _objectWithoutProperties(_ref, ["inverse", "image", "eyebrow", "heading", "customClassName", "copy", "cta", "pictogram", "onClick"]);
+
+  var refWrapper = useRef(null);
+  var TileType = props.disabled ? Tile : ClickableTile;
+  var handleClick = useCallback(function (e) {
+    if (!onClick || onClick(e) !== false) {
+      (cta === null || cta === void 0 ? void 0 : cta.type) === 'jump' ? CTALogic.jump(e, cta.type) : false;
+    }
+  }, [cta, onClick]);
+  useEffect(function () {
+    var hClick;
+    var wrapperNode = refWrapper.current;
+    var tileNode = wrapperNode.closest('.bx--tile');
+
+    if (tileNode) {
+      // Manually attach an event listener given `onClick()` of Carbon `<Tile>` runs after `<Tile>` changes its state
+      hClick = on(tileNode, 'click', handleClick);
+    }
+
+    return function () {
+      if (hClick) {
+        hClick = hClick.release();
+      }
+    };
+  }, [handleClick]);
+  return React.createElement(TileType, _extends({
+    "data-autoid": "".concat(stablePrefix, "--card"),
+    className: classNames("".concat(prefix, "--card"), (_classNames = {}, _defineProperty(_classNames, "".concat(prefix, "--card--inverse"), inverse), _defineProperty(_classNames, "".concat(prefix, "--card__CTA--disabled"), props.disabled), _classNames), customClassName),
+    href: cta === null || cta === void 0 ? void 0 : cta.href,
+    target: CTALogic.external(cta === null || cta === void 0 ? void 0 : cta.type)
+  }, props), image && React.createElement(Image, _extends({}, image, {
+    classname: "".concat(prefix, "--card__img")
+  })), React.createElement("div", {
+    className: "".concat(prefix, "--card__wrapper"),
+    ref: refWrapper
+  }, React.createElement("div", {
+    className: "".concat(prefix, "--card__content")
+  }, eyebrow && React.createElement("p", {
+    className: "".concat(prefix, "--card__eyebrow")
+  }, eyebrow), heading && React.createElement("h3", {
+    className: "".concat(prefix, "--card__heading")
+  }, heading), optionalContent(copy), renderFooter(cta, pictogram))));
+};
+/**
+ * Card Link optional content
+ *
+ * @param {string} copy paragraph of text
+ * @returns {object} JSX object
+ */
+
+function optionalContent(copy) {
+  return !copy ? null : React.createElement("div", {
+    className: "".concat(prefix, "--card__copy"),
+    dangerouslySetInnerHTML: {
+      __html: markdownToHtml(copy, {
+        bold: false
+      })
+    }
+  });
+}
+/**
+ * Render footer with icon
+ *
+ * @param {object} cta cta object
+ * @returns {object} JSX object
+ */
+
+
+function renderFooter(cta, pictogram) {
+  var _classNames2, _cta$icon;
+
+  return cta && React.createElement("div", {
+    className: classNames("".concat(prefix, "--card__footer"), (_classNames2 = {}, _defineProperty(_classNames2, "".concat(prefix, "--card__footer__icon-left"), (cta === null || cta === void 0 ? void 0 : cta.iconPlacement) === 'left'), _defineProperty(_classNames2, "".concat(prefix, "--card__footer__copy"), cta === null || cta === void 0 ? void 0 : cta.copy), _classNames2))
+  }, (cta === null || cta === void 0 ? void 0 : cta.copy) && !pictogram && React.createElement("span", {
+    className: "".concat(prefix, "--card__cta__copy")
+  }, cta === null || cta === void 0 ? void 0 : cta.copy), (cta === null || cta === void 0 ? void 0 : (_cta$icon = cta.icon) === null || _cta$icon === void 0 ? void 0 : _cta$icon.src) && !pictogram && React.createElement(cta.icon.src, _extends({
+    className: "".concat(prefix, "--card__cta")
+  }, cta === null || cta === void 0 ? void 0 : cta.icon)), pictogram && pictogram);
+}
+
+export var cardPropTypes = {
+  /**
+   * Concise yet descriptive string of text describing the linked resource.
+   */
+  heading: PropTypes.string,
+
+  /**
+   * Eyebrow text to be passed as a property to the Card component.
+   * Style for Card component has been set to "text".
+   */
+  eyebrow: PropTypes.string,
+
+  /**
+   * Paragraph of text that further describing the resource with added detail.
+   */
+  copy: PropTypes.string,
+
+  /**
+   * Disable card link
+   */
+  disabled: PropTypes.bool,
+
+  /**
+   * Pictogram located at the bottom left side of the Card. This prop disables the CTA.copy and CTA.icon (experimental)
+   */
+  pictogram: PropTypes.node,
+
+  /**
+   * CTA options. Has the following structure in summary:
+   *
+   * | Name            | Data Type | Description                                                                                                                      |
+   * | --------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
+   * | `href`          | String    | Valid URL for a the location of an internal or external resource                                                                 |
+   * | `icon`          | String    | Provide an optional icon to the footer from [Carbon's icon library](https://www.carbondesignsystem.com/guidelines/icons/library) |
+   * | `iconPlacement` | String    | Option to place icon left or right of cta text                                                                                   |
+   * | `copy`          | String    | Optional text for CTA                                                                                                            |
+   * | `type`          | String    | type of CTA (local or external) when Card type is static                                                                         |
+   *
+   * See the [`<CTA>`'s README](http://ibmdotcom-react.mybluemix.net/?path=/docs/components-cta--default#props) for full usage details.
+   */
+  cta: PropTypes.shape({
+    copy: PropTypes.string,
+    href: PropTypes.string,
+    type: PropTypes.oneOf(['jump', 'local', 'external', 'download']),
+    icon: PropTypes.shape({
+      src: PropTypes.elementType
+    }),
+    iconPlacement: PropTypes.oneOf(['left', 'right'])
+  }),
+
+  /**
+   * Contains source and alt text properties.
+   * See [`<Image>`'s README](http://ibmdotcom-react.mybluemix.net/?path=/docs/components-image--default#props) for full usage details.
+   */
+  image: PropTypes.shape({
+    classname: PropTypes.string,
+    sources: PropTypes.arrayOf(PropTypes.shape({
+      src: PropTypes.string,
+      breakpoint: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    })),
+    defaultSrc: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+    longDescription: PropTypes.string
+  }),
+
+  /**
+   * `true` to sets the high contrast for Card.
+   */
+  inverse: PropTypes.bool,
+
+  /**
+   * Classname to be assigned to the Card component.
+   */
+  customClassName: PropTypes.string,
+
+  /**
+   * A handler for `click` event on the card.
+   */
+  onClick: PropTypes.func
+};
+Card.propTypes = cardPropTypes;

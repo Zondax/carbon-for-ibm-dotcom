@@ -1,9 +1,0 @@
-/dist
-/src/internal/vendor
-/tests/coverage
-/tests/snapshots
-es
-lib
-node_modules
-docs
-storybook-static-react
