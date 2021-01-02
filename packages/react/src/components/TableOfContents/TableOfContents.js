@@ -25,13 +25,13 @@ const { prefix } = settings;
  * @returns {Array} returns elemenrt name and data title
  */
 const _findMenuItems = () => {
-  const eles = document.querySelectorAll('a[name]');
+  const eles = document.querySelectorAll('a[href]');
   const menuItems = [];
   eles.forEach(element => {
-    if (element.getAttribute('name') !== 'menuLabel') {
+    if (element.getAttribute('href') !== 'menuLabel') {
       menuItems.push({
-        id: element.getAttribute('name'),
-        title: element.getAttribute('data-title') || '',
+        id: element.getAttribute('hre'),
+        title: element.getAttribute('aria-label') || '',
       });
     }
   });
@@ -110,10 +110,10 @@ const TableOfContents = ({
   /**
    * Check whether provided anchor tags are in visible viewport
    *
-   * @returns {string} name attribute
+   * @returns {string} href attribute
    */
   const getElemsInView = () => {
-    const items = [...document.querySelectorAll('a[name]')]
+    const items = [...document.querySelectorAll('a[href]')]
       .map((elem, index, arr) => ({
         elem,
         height: arr[index + 1]
@@ -128,7 +128,7 @@ const TableOfContents = ({
           : elem.position - 50 > -elem.height
       );
 
-    return items[0].elem.getAttribute('name');
+    return items[0].elem.getAttribute('href');
   };
 
   /**
@@ -252,7 +252,7 @@ TableOfContents.propTypes = {
    * follow the following format:
    *
    * ```html
-   * <a name="name-of-section" data-title="Lorem Ipsum"></a>
+   * <a href="href-of-section" aria-label="Lorem Ipsum"></a>
    * ```
    */
   menuItems: PropTypes.arrayOf(
