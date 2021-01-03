@@ -218,6 +218,10 @@ var TableOfContents = function TableOfContents(_ref) {
   }, headingContent, menuRule && React.createElement(HorizontalRule, null)), React.createElement("div", {
     className: "".concat(prefix, "--tableofcontents__mobile-top")
   }), React.createElement("div", {
+    style: {
+      position: 'sticky',
+      top: stickyOffset ? "".concat(stickyOffset, "px") : 0
+    },    
     className: "zondax-tableofcontents-anchors-container"
   }, React.createElement(TOCDesktop, _extends({
     menuRule: menuRule,
